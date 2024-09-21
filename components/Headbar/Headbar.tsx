@@ -1,45 +1,25 @@
 'use client';
 
-import React, { ReactElement, useState, useEffect, useRef } from 'react';
+import React, { ReactElement, useState } from 'react';
 import Link from 'next/link';
-import { PiList, PiBell, PiMagnifyingGlass, PiLog } from 'react-icons/pi';
+import { PiList, PiBell, PiMagnifyingGlass } from 'react-icons/pi';
 import Image from 'next/image';
 import logo1 from '/public/FC25.png';
 import logo2 from '/public/PML.png';
-import styles from './headbar.module.scss';
 import clsx from 'clsx';
+import { useDisclosure } from '@mantine/hooks';
+import { Dialog, Group, Button, TextInput, Text, MantineProvider } from '@mantine/core';
+import styles from './headbar.module.scss';
 
 export default function Headbar(): ReactElement {
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const [isSearchVisible, setSearchVisible] = useState(false);
-
-  // Riferimento per la barra di ricerca
-  const searchBarRef = useRef<HTMLDivElement>(null);
+  const [opened, { toggle, close }] = useDisclosure(false);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
 
-  // Chiudi la barra di ricerca quando clicchi fuori da essa
-  // PS: Ross, quando vedrai questo useEffect, sappi che ci ho litigato 2 ore.
-  //    Funziona ma non riesco a trovare un modo per scriverlo diversamente :(
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (searchBarRef.current && !searchBarRef.current.contains(event.target as Node)) {
-        setSearchVisible(false); // Nasconde la barra di ricerca di
-      }
-    };
-
-    if (isSearchVisible) {
-      document.addEventListener('click', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [isSearchVisible]);
-
   return (
-    <>
+    <div>
       <header className={clsx(styles.root, 'Headbar-root')}>
         <div className={styles.leftSection}>
           <button className={styles.menuButton} onClick={toggleMenu}>
@@ -53,9 +33,45 @@ export default function Headbar(): ReactElement {
           </Link>
         </div>
         <div className={styles.centerSection}>
-          <button className={styles.searchButton} onClick={() => setSearchVisible(true)}>
-            <PiMagnifyingGlass />
-          </button>
+          <MantineProvider>
+            <Group justify="center">
+              <Button
+                onClick={toggle}
+                className={styles.searchButton}
+                //Ross, purtroppo è l'unico modo (Per ora) che mi consente di
+                // bypassare delle mod di mantine che si attivano e sovrascrivono
+                // il mio css
+              >
+                <PiMagnifyingGlass />
+              </Button>
+            </Group>
+
+            <Dialog
+              opened={opened}
+              withCloseButton
+              onClose={close}
+              size="lg"
+              radius="md"
+              style={{
+                top: '4.9375rem',
+                position: 'fixed',
+                left: '0',
+                width: '100%',
+                backgroundColor: '#182b34',
+              }}
+            >
+              <Text size="sm" mb="xs" fw={500}>
+                Cerca Giocatore
+              </Text>
+
+              <Group>
+                <TextInput placeholder="Search here..." style={{ flex: 1 }} />
+                <Button onClick={close} style={{ backgroundColor: 'transparent' }}>
+                  Search
+                </Button>
+              </Group>
+            </Dialog>
+          </MantineProvider>
         </div>
         <div className={styles.rightSection}>
           <button className={styles.notificationsButton}>
@@ -91,19 +107,6 @@ export default function Headbar(): ReactElement {
           </div>
         )}
       </header>
-
-      {/* La barra di ricerca visibile sotto la headbar */}
-      {isSearchVisible && (
-        <div className={styles.searchBar} ref={searchBarRef}>
-          <input
-            type="text"
-            placeholder="Cerca..."
-            className={styles.searchInput}
-            onBlur={() => setSearchVisible(false)}
-            // Nasconde la barra di ricerca al perdere del focus
-          />
-        </div>
-      )}
-    </>
+    </div>
   );
 }
