@@ -19,7 +19,8 @@ export default function Headbar(): ReactElement {
   // Riferimento per la barra di ricerca
   const searchBarRef = useRef<HTMLDivElement>(null);
 
-  const toggleMenu = () => setMenuOpen(prev => !prev);
+  // eslint-disable-next-line arrow-parens
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
 
   // Chiudi la barra di ricerca quando clicchi fuori da essa
