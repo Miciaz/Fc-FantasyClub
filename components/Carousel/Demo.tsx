@@ -1,15 +1,15 @@
 'use client';
 
+/* eslint-disable react/jsx-indent-props */
 import React, { ReactElement } from 'react';
 import { Carousel } from '@mantine/carousel';
-import '@mantine/carousel/styles.css'; // Mantine CSS se ancora ne hai bisogno
-import styles from './Demo.module.scss'; // Importa il modulo SCSS
 import Image from 'next/image';
-import logoMilan from '/public/LogoMilan.png';
-import LogoLazio from '/public/LogoLazio.png';
-import LogoInter from '/public/LogoInter.png';
-import LogoRoma from '/public/LogoRoma.png';
-import LogoFanta from '/public/LogoFanta.png';
+import LogoFanta from '@/public/LogoFanta.png';
+import logoMilan from '@/public/LogoMilan.png';
+import LogoLazio from '@/public/LogoLazio.png';
+
+import '@mantine/carousel/styles.css';
+import styles from './Demo.module.scss';
 
 function Demo(): ReactElement {
   return (

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import clsx from 'clsx';
-import Demo from '../components/Carousel/Demo';
 import { MantineProvider } from '@mantine/core';
+import Demo from '../components/Carousel/Demo';
 
 import styles from './page.module.scss';
 
