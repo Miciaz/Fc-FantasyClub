@@ -40,5 +40,3 @@ export default function Navbar(): ReactElement {
     </nav>
   );
 }
-
-// Stili di base per la navbar (opzionale, puoi usare CSS/SASS)

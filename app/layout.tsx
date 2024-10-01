@@ -2,7 +2,9 @@
 import '@mantine/core/styles.css';
 import React from 'react';
 import clsx from 'clsx';
+import { MantineProvider } from '@mantine/core';
 import Navbar from '../components/Navbar/Navbar';
+import Headbar from '@/components/Headbar/Headbar';
 
 import styles from './layout.module.scss';
 
@@ -22,9 +24,11 @@ export default function RootLayout({ children }: { children: any }) {
         />
       </head>
       <body className={clsx(styles.root)}>
-        {/* <MantineProvider theme={theme}>{children}</MantineProvider> */}
-        {children}
-        <Navbar />
+        <MantineProvider>
+          <Headbar />
+          {children}
+          <Navbar />
+        </MantineProvider>
       </body>
     </html>
   );
