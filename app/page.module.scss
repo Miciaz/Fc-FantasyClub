@@ -5,3 +5,10 @@
   height: 100vh; // Imposta l'altezza della pagina al 100% della viewport
   grid-gap: 1rem; // Spaziatura tra le righe
 }
+
+.separator {
+  padding: 10px;
+  background-color: var(--background-secondary);
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
+}
