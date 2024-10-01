@@ -1,13 +1,16 @@
 'use client';
 
+/* eslint-disable react/jsx-indent-props */
 import React, { ReactElement, useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import { PiList, PiBell, PiMagnifyingGlass, PiLog } from 'react-icons/pi';
-import Image from 'next/image';
-import logo1 from '/public/FC25.png';
-import logo2 from '/public/PML.png';
-import styles from './headbar.module.scss';
 import clsx from 'clsx';
+import Link from 'next/link';
+import { PiList, PiBell, PiMagnifyingGlass } from 'react-icons/pi';
+import { Button } from '@mantine/core';
+import Image from 'next/image';
+import logo1 from '@/public/FC25.png';
+import logo2 from '@/public/PML.png';
+
+import styles from './headbar.module.scss';
 
 export default function Headbar(): ReactElement {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -16,6 +19,7 @@ export default function Headbar(): ReactElement {
   // Riferimento per la barra di ricerca
   const searchBarRef = useRef<HTMLDivElement>(null);
 
+  // eslint-disable-next-line arrow-parens
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
 
@@ -40,11 +44,11 @@ export default function Headbar(): ReactElement {
 
   return (
     <>
-      <header className={clsx(styles.root, 'Headbar-root')}>
+      <nav className={clsx(styles.root, 'Headbar-root')}>
         <div className={styles.leftSection}>
-          <button className={styles.menuButton} onClick={toggleMenu}>
+          <Button className={styles.menuButton} onClick={toggleMenu}>
             <PiList />
-          </button>
+          </Button>
           <Link href="/" className={styles.logo}>
             <Image src={logo1} alt="Logo1" height={74} width={120} />
           </Link>
@@ -53,14 +57,14 @@ export default function Headbar(): ReactElement {
           </Link>
         </div>
         <div className={styles.centerSection}>
-          <button className={styles.searchButton} onClick={() => setSearchVisible(true)}>
+          <Button className={styles.searchButton} onClick={() => setSearchVisible(true)}>
             <PiMagnifyingGlass />
-          </button>
+          </Button>
         </div>
         <div className={styles.rightSection}>
-          <button className={styles.notificationsButton}>
+          <Button className={styles.notificationsButton}>
             <PiBell />
-          </button>
+          </Button>
         </div>
         {isMenuOpen && (
           <div className={styles.menuOverlay} onClick={closeMenu}>
@@ -90,7 +94,7 @@ export default function Headbar(): ReactElement {
             </nav>
           </div>
         )}
-      </header>
+      </nav>
 
       {/* La barra di ricerca visibile sotto la headbar */}
       {isSearchVisible && (

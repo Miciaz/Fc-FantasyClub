@@ -3,9 +3,9 @@
 import React, { ReactElement } from 'react';
 import Link from 'next/link';
 import { PiHouseLight, PiUsersThree, PiSwap, PiRanking } from 'react-icons/pi';
+import clsx from 'clsx';
 
 import styles from './navbar.module.scss';
-import clsx from 'clsx';
 
 export default function Navbar(): ReactElement {
   return (
